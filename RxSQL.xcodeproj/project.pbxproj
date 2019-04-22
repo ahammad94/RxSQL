@@ -21,10 +21,9 @@
 		E68908DC226BC986001B8C30 /* Insert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908DB226BC986001B8C30 /* Insert.swift */; };
 		E68908DF226BCDFD001B8C30 /* SQLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908DE226BCDFD001B8C30 /* SQLResult.swift */; };
 		E68908E1226BCE37001B8C30 /* SQLDone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908E0226BCE37001B8C30 /* SQLDone.swift */; };
-		E68908E3226BCF19001B8C30 /* SQLRowReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908E2226BCF19001B8C30 /* SQLRowReference.swift */; };
 		E68908E5226BD13B001B8C30 /* Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908E4226BD13B001B8C30 /* Select.swift */; };
 		E68908E7226D58C0001B8C30 /* SQLRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908E6226D58C0001B8C30 /* SQLRow.swift */; };
-		E68908EB226D5B9B001B8C30 /* SQLTableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908EA226D5B9B001B8C30 /* SQLTableReference.swift */; };
+		E68908EB226D5B9B001B8C30 /* SQLTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68908EA226D5B9B001B8C30 /* SQLTable.swift */; };
 		E689090B226D656E001B8C30 /* RxCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6890901226D655D001B8C30 /* RxCocoa.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E689090C226D656E001B8C30 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6890900226D655D001B8C30 /* RxSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E689090E226D6570001B8C30 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6890901226D655D001B8C30 /* RxCocoa.framework */; };
@@ -99,10 +98,9 @@
 		E68908DB226BC986001B8C30 /* Insert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insert.swift; sourceTree = "<group>"; };
 		E68908DE226BCDFD001B8C30 /* SQLResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLResult.swift; sourceTree = "<group>"; };
 		E68908E0226BCE37001B8C30 /* SQLDone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLDone.swift; sourceTree = "<group>"; };
-		E68908E2226BCF19001B8C30 /* SQLRowReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLRowReference.swift; sourceTree = "<group>"; };
 		E68908E4226BD13B001B8C30 /* Select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Select.swift; sourceTree = "<group>"; };
 		E68908E6226D58C0001B8C30 /* SQLRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLRow.swift; sourceTree = "<group>"; };
-		E68908EA226D5B9B001B8C30 /* SQLTableReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLTableReference.swift; sourceTree = "<group>"; };
+		E68908EA226D5B9B001B8C30 /* SQLTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLTable.swift; sourceTree = "<group>"; };
 		E6890900226D655D001B8C30 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
 		E6890901226D655D001B8C30 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = "<group>"; };
 		E6890902226D655D001B8C30 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = "<group>"; };
@@ -192,9 +190,8 @@
 			children = (
 				E68908D6226BB50E001B8C30 /* DatabaseReference.swift */,
 				E68908D4226BB463001B8C30 /* SQLExecutable.swift */,
-				E68908E9226D5A20001B8C30 /* Entity */,
-				E68908E8226D59A6001B8C30 /* Row */,
-				E68908DD226BCDF0001B8C30 /* Response */,
+				E68908E9226D5A20001B8C30 /* Database Entity */,
+				E68908E8226D59A6001B8C30 /* Entities */,
 				E68908D8226BC01E001B8C30 /* Statements */,
 			);
 			path = SQL;
@@ -215,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				E68908C9226B8E2D001B8C30 /* SQLStatement.swift */,
-				E68908EA226D5B9B001B8C30 /* SQLTableReference.swift */,
 				E68908D2226BA1CE001B8C30 /* CreateTable.swift */,
 				E68908DB226BC986001B8C30 /* Insert.swift */,
 				E68908E4226BD13B001B8C30 /* Select.swift */,
@@ -223,30 +219,23 @@
 			path = Statements;
 			sourceTree = "<group>";
 		};
-		E68908DD226BCDF0001B8C30 /* Response */ = {
+		E68908E8226D59A6001B8C30 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				E68908DE226BCDFD001B8C30 /* SQLResult.swift */,
-				E68908E0226BCE37001B8C30 /* SQLDone.swift */,
-				E68908E2226BCF19001B8C30 /* SQLRowReference.swift */,
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		E68908E8226D59A6001B8C30 /* Row */ = {
-			isa = PBXGroup;
-			children = (
+				E68908EA226D5B9B001B8C30 /* SQLTable.swift */,
 				E68908E6226D58C0001B8C30 /* SQLRow.swift */,
+				E68908E0226BCE37001B8C30 /* SQLDone.swift */,
 			);
-			path = Row;
+			path = Entities;
 			sourceTree = "<group>";
 		};
-		E68908E9226D5A20001B8C30 /* Entity */ = {
+		E68908E9226D5A20001B8C30 /* Database Entity */ = {
 			isa = PBXGroup;
 			children = (
 				E625DB1E225D4D1200390248 /* Entity.swift */,
 			);
-			path = Entity;
+			path = "Database Entity";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,7 +348,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E68908E3226BCF19001B8C30 /* SQLRowReference.swift in Sources */,
 				E68908DC226BC986001B8C30 /* Insert.swift in Sources */,
 				E68908D5226BB463001B8C30 /* SQLExecutable.swift in Sources */,
 				E68908CD226B976B001B8C30 /* Int.swift in Sources */,
@@ -368,7 +356,7 @@
 				E68908D3226BA1CE001B8C30 /* CreateTable.swift in Sources */,
 				E68908DF226BCDFD001B8C30 /* SQLResult.swift in Sources */,
 				E68908E1226BCE37001B8C30 /* SQLDone.swift in Sources */,
-				E68908EB226D5B9B001B8C30 /* SQLTableReference.swift in Sources */,
+				E68908EB226D5B9B001B8C30 /* SQLTable.swift in Sources */,
 				E68908D1226B97C4001B8C30 /* SupportedType.swift in Sources */,
 				E68908E7226D58C0001B8C30 /* SQLRow.swift in Sources */,
 				E68908CF226B9793001B8C30 /* String.swift in Sources */,

@@ -12,8 +12,8 @@ public class CreateTable: SQLStatement {
     public var statement: String = ""
     private var numberOfProperties = 0
     
-    public init(_ entity: DatabaseEntity.Type) {
-        self.statement = "CREATE TABLE \(entity.self)"
+    public init(_ val: String) {
+        self.statement = "CREATE TABLE \(val)"
     }
     
     private init(_ statement: String, numberOfProperties: Int) {
@@ -24,11 +24,13 @@ public class CreateTable: SQLStatement {
 
 
 extension CreateTable {
-    func setProperty(_ name: String, type: SupportedType.Type, canBeNull: Bool, isPrimaryKey: Bool = false) -> CreateTable {
+    func setProperty(_ name: String, type: SupportedType.Type, canBeNull: Bool, isPrimaryKey: Bool = false,
+                     autoIncrement: Bool = false) -> CreateTable {
         let nullModifier = canBeNull ? "" : " NOT NULL"
         let primaryKeyModifier = isPrimaryKey ? " PRIMARY KEY" : ""
+        let autoIncrementModifier = autoIncrement ? " AUTOINCREMENT " : ""
         
-        let toAdd = " \(name) \(type.toSql())\(primaryKeyModifier)\(nullModifier)"
+        let toAdd = " \(name) \(type.toSql())\(primaryKeyModifier)\(nullModifier)\(autoIncrementModifier)"
         
         var newStatement = String(statement)
         

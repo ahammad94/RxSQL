@@ -11,8 +11,8 @@ import SQLite3
 public class Insert: SQLStatement {
     public var statement: String = ""
     
-    public init(into model: DatabaseEntity.Type) {
-        self.statement = "INSERT INTO \(model.self)"
+    public init(into val: String) {
+        self.statement = "INSERT INTO \(val)"
     }
     
     private init(_ statement: String) {

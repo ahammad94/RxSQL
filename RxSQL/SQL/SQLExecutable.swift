@@ -28,7 +28,7 @@ extension SQLExecutable {
 }
 
 extension SQLExecutable {
-    public func execute(db: DatabaseReference?) -> Single<SQLResult> {
+    public func execute<T: SQLResult>(db: DatabaseReference?, _ returnType: T.Type) -> Single<[T]> {
         return Single.create { [weak self] singleEvent in
             
             // Evaluate the SQL Statement
@@ -36,9 +36,27 @@ extension SQLExecutable {
             
             // If result was a simple done then propage
             if result == SQLITE_DONE {
-                singleEvent(.success(SQLDone(self?.statmentPointer)))
+                
+                guard returnType == SQLDone.self else {
+                    singleEvent(.error(RxSQLError.badReturnTypePassed))
+                    return Disposables.create { }
+                }
+                
+                singleEvent(.success([T(self?.statmentPointer)]))
             } else if result == SQLITE_ROW {
-                singleEvent(.success(SQLRowReference(self?.statmentPointer)))
+                
+                // Ensure the expected return type is a row
+                guard returnType == SQLRow.self else {
+                    singleEvent(.error(RxSQLError.badReturnTypePassed))
+                    return Disposables.create { }
+                }
+                
+                // Evaluate all the rows into SQLRows
+                var rows = [T(self?.statmentPointer)]
+                while sqlite3_step(self?.statmentPointer) == SQLITE_ROW { rows.append(T(self?.statmentPointer)) }
+                
+                
+                singleEvent(.success(rows))
             } else {
                 singleEvent(.error(RxSQLError.errorEvaluatingStatement))
             }
@@ -46,6 +64,9 @@ extension SQLExecutable {
             return Disposables.create { sqlite3_finalize(self?.statmentPointer) }
         }
     }
+    
+    
+    
 }
 
 
