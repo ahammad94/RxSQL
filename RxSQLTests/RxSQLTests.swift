@@ -7,6 +7,7 @@
 
 import XCTest
 import RxSwift
+import RxBlocking
 @testable import RxSQL
 
 class RxSQLTests: XCTestCase {
@@ -36,42 +37,31 @@ class RxSQLTests: XCTestCase {
     
     func testCreatingTable() {
         
-        CreateTable("Teachers")
+        Delete()
+            .from("Teacher")
+            .where("Teacher.salary <= 200")
+            .executable(db: databaseReference)
+            .execute(db: databaseReference, SQLDone.self)
+            .subscribe()
+            .disposed(by: disposeBag)
+        
+       let result =  CreateTable("Teachers")
             .setProperty("Id", type: Int.self, canBeNull: false, isPrimaryKey: true, autoIncrement: true)
             .setProperty("Name", type: String.self, canBeNull: false)
             .setProperty("Salary", type: Float.self, canBeNull: false)
             .executable(db: databaseReference)
             .execute(db: databaseReference, SQLDone.self)
-            .flatMap { _ in
-                CreateTable("Students")
-                    .setProperty("Id", type: Int.self, canBeNull: false, isPrimaryKey: true, autoIncrement: true)
-                    .setProperty("TeacherId", type: Int.self, canBeNull: false)
-                    .setProperty("Name", type: String.self, canBeNull: false)
-                    .executable(db: self.databaseReference)
-                    .execute(db: self.databaseReference, SQLDone.self)
-            }
-            .flatMap { _ in
-                Insert(into: "Teacher")
-                    .properties(["Name", "Salary"])
-                    .executable(db: self.databaseReference)
-                    .bindValue(forKey: "Name", value: "John")
-                    .bindValue(forKey: "Salary", value: Float(485.5))
-                    .execute(db: self.databaseReference, SQLDone.self)
-            }
-            .flatMap { _ in
-                Select("*")
-                    .from("Teachers")
-                    .innerJoin("Students")
-                    .using("id")
-                    .where("Teachers.salary >= 5000")
-                    .executable(db: self.databaseReference)
-                    .execute(db: self.databaseReference, SQLRow.self)
-            }.subscribe(onSuccess: { (rows) in
-                rows.forEach {
-                    print("Teacher name is \($0["Name"] as? String)")
-                }
-            })
-            .disposed(by: disposeBag)
+            .toBlocking()
+            .materialize()
+    
+        
+        switch result {
+        case .failed(elements: _, error: let error):
+            XCTFail(error.localizedDescription)
+        default:
+            break
+        }
+        
     }
     
     class Te: DatabaseEntity { }

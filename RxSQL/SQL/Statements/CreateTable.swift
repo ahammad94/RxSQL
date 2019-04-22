@@ -12,8 +12,9 @@ public class CreateTable: SQLStatement {
     public var statement: String = ""
     private var numberOfProperties = 0
     
-    public init(_ val: String) {
-        self.statement = "CREATE TABLE \(val)"
+    public init(_ val: String, ifNotExists: Bool = true) {
+        let ifNotExistsModifier = ifNotExists ? " IF NOT EXISTS \(val)" : "\(val)"
+        self.statement = "CREATE TABLE \(ifNotExistsModifier)"
     }
     
     private init(_ statement: String, numberOfProperties: Int) {
