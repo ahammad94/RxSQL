@@ -20,10 +20,10 @@ Rx &amp; Functional Wrapper around SQLite C  for iOS
 ## Inserting a record
 
 ```swift
- // Database Reference
- var databaseReference = DatabaseReference(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
+    // Database Reference
+    var databaseReference = DatabaseReference(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
   
- Insert(into: "Teacher")
+    Insert(into: "Teacher")
             .properties(["Name", "Salary"])
             .executable(db: self.databaseReference)
             .bindValue(forKey: "Name", value: "John")
@@ -33,12 +33,26 @@ Rx &amp; Functional Wrapper around SQLite C  for iOS
             .disposed(by: disposeBag)
 ```
 
+## Deleting a record 
+```swift
+    // Database Reference
+    var databaseReference = DatabaseReference(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
+  
+    Delete()
+            .from("Teacher")
+            .where("Teacher.salary <= 200")
+            .executable(db: databaseReference)
+            .execute(db: databaseReference, SQLDone.self)
+            .subscribe()
+            .disposed(by: disposeBag)
+```
+
 ## Querying
 ```swift
  // Database Reference
- var databaseReference = DatabaseReference(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
+    var databaseReference = DatabaseReference(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])
   
- Select("*")
+    Select("*")
             .from("Teachers")
             .innerJoin("Students")
             .on("Teachers.id == Students.TeacherId")
