@@ -10,4 +10,5 @@ import SQLite3
 
 public protocol SQLResult {
     var statmentPointer: OpaquePointer? { get set }
+    init(_ statementPointer: OpaquePointer?)
 }

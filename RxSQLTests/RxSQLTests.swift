@@ -36,36 +36,42 @@ class RxSQLTests: XCTestCase {
     
     func testCreatingTable() {
         
-        CreateTable(Te.self)
-            .setProperty("Id", type: String.self, canBeNull: false, isPrimaryKey: true)
-            .setProperty("Name", type: String.self, canBeNull: true)
+        CreateTable("Teachers")
+            .setProperty("Id", type: Int.self, canBeNull: false, isPrimaryKey: true, autoIncrement: true)
+            .setProperty("Name", type: String.self, canBeNull: false)
+            .setProperty("Salary", type: Float.self, canBeNull: false)
             .executable(db: databaseReference)
-            .execute(db: databaseReference)
-            .subscribe()
-            .disposed(by: disposeBag)
-        
-        Insert(into: Te.self)
-            .properties(["Id", "Time"])
-            .executable(db: databaseReference)
-            .bindValue(forKey: "id", value: "123")
-            .bindValue(forKey: "time", value: "234")
-            .execute(db: databaseReference)
-            .subscribe()
-            .disposed(by: disposeBag)
-        
-        Select("*")
-            .from("Students")
-            .crossJoin("Teachers")
-            .on("Students.id == Teachers.id")
-            .executable(db: databaseReference)
-            .execute(db: databaseReference)
-            .subscribe(onSuccess: { (result) in
-                if let rows = result as? [SQLRow] {
-                    rows.forEach {
-                        print($0["id"])
-                    }
+            .execute(db: databaseReference, SQLDone.self)
+            .flatMap { _ in
+                CreateTable("Students")
+                    .setProperty("Id", type: Int.self, canBeNull: false, isPrimaryKey: true, autoIncrement: true)
+                    .setProperty("TeacherId", type: Int.self, canBeNull: false)
+                    .setProperty("Name", type: String.self, canBeNull: false)
+                    .executable(db: self.databaseReference)
+                    .execute(db: self.databaseReference, SQLDone.self)
+            }
+            .flatMap { _ in
+                Insert(into: "Teacher")
+                    .properties(["Name", "Salary"])
+                    .executable(db: self.databaseReference)
+                    .bindValue(forKey: "Name", value: "John")
+                    .bindValue(forKey: "Salary", value: Float(485.5))
+                    .execute(db: self.databaseReference, SQLDone.self)
+            }
+            .flatMap { _ in
+                Select("*")
+                    .from("Teachers")
+                    .innerJoin("Students")
+                    .using("id")
+                    .where("Teachers.salary >= 5000")
+                    .executable(db: self.databaseReference)
+                    .execute(db: self.databaseReference, SQLRow.self)
+            }.subscribe(onSuccess: { (rows) in
+                rows.forEach {
+                    print("Teacher name is \($0["Name"] as? String)")
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     class Te: DatabaseEntity { }

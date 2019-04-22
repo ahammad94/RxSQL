@@ -9,10 +9,11 @@ import Foundation
 import SQLite3
 import RxSwift
 
-public class SQLRow {
+public class SQLRow: SQLResult {
+    public var statmentPointer: OpaquePointer?
     private var values = [String: SupportedType]()
     
-    init(statement: OpaquePointer?) {
+    required public init(_ statement: OpaquePointer?) {
         self.setup(from: statement)
     }
     

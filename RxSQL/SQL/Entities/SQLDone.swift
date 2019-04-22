@@ -11,7 +11,7 @@ import SQLite3
 public class SQLDone: SQLResult {
     public var statmentPointer: OpaquePointer?
     
-    init(_ statementPointer: OpaquePointer?) {
+    public required init(_ statementPointer: OpaquePointer?) {
         self.statmentPointer = statementPointer
     }
 }

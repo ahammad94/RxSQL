@@ -31,4 +31,5 @@ extension SQLStatement {
 public enum RxSQLError: Error {
     case errorPreparingStatement
     case errorEvaluatingStatement
+    case badReturnTypePassed
 }
