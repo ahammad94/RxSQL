@@ -39,6 +39,9 @@
 		E6890919226D6581001B8C30 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6890900226D655D001B8C30 /* RxSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E689091A226D6581001B8C30 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6890903226D655D001B8C30 /* RxTest.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E689091D226D673D001B8C30 /* RxSQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E625DB04225D4CD500390248 /* RxSQL.framework */; };
+		E689091E226E490B001B8C30 /* RxAtomic.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E6890904226D655D001B8C30 /* RxAtomic.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E689091F226E490F001B8C30 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6890904226D655D001B8C30 /* RxAtomic.framework */; };
+		E6890923226E8A1B001B8C30 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6890922226E8A1B001B8C30 /* Delete.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,7 @@
 			files = (
 				E689090B226D656E001B8C30 /* RxCocoa.framework in CopyFiles */,
 				E689090C226D656E001B8C30 /* RxSwift.framework in CopyFiles */,
+				E689091E226E490B001B8C30 /* RxAtomic.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +110,7 @@
 		E6890902226D655D001B8C30 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = "<group>"; };
 		E6890903226D655D001B8C30 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxTest.framework; sourceTree = "<group>"; };
 		E6890904226D655D001B8C30 /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxAtomic.framework; sourceTree = "<group>"; };
+		E6890922226E8A1B001B8C30 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +120,7 @@
 			files = (
 				E689090E226D6570001B8C30 /* RxCocoa.framework in Frameworks */,
 				E689090F226D6570001B8C30 /* RxSwift.framework in Frameworks */,
+				E689091F226E490F001B8C30 /* RxAtomic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +221,7 @@
 				E68908D2226BA1CE001B8C30 /* CreateTable.swift */,
 				E68908DB226BC986001B8C30 /* Insert.swift */,
 				E68908E4226BD13B001B8C30 /* Select.swift */,
+				E6890922226E8A1B001B8C30 /* Delete.swift */,
 			);
 			path = Statements;
 			sourceTree = "<group>";
@@ -358,6 +365,7 @@
 				E68908E1226BCE37001B8C30 /* SQLDone.swift in Sources */,
 				E68908EB226D5B9B001B8C30 /* SQLTable.swift in Sources */,
 				E68908D1226B97C4001B8C30 /* SupportedType.swift in Sources */,
+				E6890923226E8A1B001B8C30 /* Delete.swift in Sources */,
 				E68908E7226D58C0001B8C30 /* SQLRow.swift in Sources */,
 				E68908CF226B9793001B8C30 /* String.swift in Sources */,
 				E68908D7226BB50E001B8C30 /* DatabaseReference.swift in Sources */,

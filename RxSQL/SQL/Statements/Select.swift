@@ -8,7 +8,17 @@
 import Foundation
 import SQLite3
 
-public class Select: SQLStatement {
+
+public protocol TableSelector: SQLStatement { }
+
+extension TableSelector {
+    public func from(_ val: String) -> SQLTable {
+        let newStatement = "\(statement) FROM"
+        return SQLTable(statement: newStatement, tableName: val)
+    }
+}
+
+public class Select: SQLStatement, TableSelector {
     public var statement: String
     
     init(_ toSelect: String) {
@@ -17,10 +27,5 @@ public class Select: SQLStatement {
     
     private init(statement: String) {
         self.statement = statement
-    }
-    
-    public func from(_ val: String) -> SQLTable {
-        let newStatement = "\(statement) FROM"
-        return SQLTable(statement: newStatement, tableName: val)
     }
 }
